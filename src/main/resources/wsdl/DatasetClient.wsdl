@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://AllinOne.SOAP_service.acme.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="Dataset" targetNamespace="http://AllinOne.SOAP_service.acme.org/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://AllinOne.SOAP_service.acme.org/" elementFormDefault="unqualified" targetNamespace="http://AllinOne.SOAP_service.acme.org/" version="1.0">
+
+  <xs:element name="combineStructure" type="tns:combineStructure"/>
+
+  <xs:element name="combineStructureResponse" type="tns:combineStructureResponse"/>
+
+  <xs:element name="dayMonth" type="tns:dayMonth"/>
+
+  <xs:element name="objCollection" type="tns:objCollection"/>
+
+  <xs:element name="objd" type="tns:objd"/>
+
+  <xs:element name="signature" type="tns:signature"/>
+
+  <xs:element name="type" type="tns:type"/>
+
+  <xs:element name="wrapper" type="tns:wrapper"/>
+
+  <xs:complexType name="combineStructure">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="type" type="xs:string"/>
+      <xs:element minOccurs="0" name="date" type="xs:dateTime"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="sign" type="xs:string"/>
+      <xs:element minOccurs="0" name="objd" type="tns:objd"/>
+      <xs:element minOccurs="0" name="collection" type="tns:objCollection"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="objd">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="address" type="xs:string"/>
+      <xs:element minOccurs="0" name="district" type="xs:string"/>
+      <xs:element minOccurs="0" name="city" type="xs:string"/>
+      <xs:element name="postal" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="objCollection">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="userDetails" type="xs:anyType"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="contractDetails" type="xs:anyType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="combineStructureResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:wrapper"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="wrapper">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="type" type="tns:type"/>
+      <xs:element minOccurs="0" name="day" type="tns:dayMonth"/>
+      <xs:element minOccurs="0" name="signature" type="tns:signature"/>
+      <xs:element minOccurs="0" name="objd" type="tns:objd"/>
+      <xs:element minOccurs="0" name="collection" type="tns:objCollection"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="type">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="type" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="dayMonth">
+    <xs:sequence/>
+    <xs:attribute name="date" type="xs:dateTime"/>
+  </xs:complexType>
+
+  <xs:complexType name="signature">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="signature" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="combineStructure">
+    <wsdl:part element="tns:combineStructure" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="combineStructureResponse">
+    <wsdl:part element="tns:combineStructureResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="Dataset">
+    <wsdl:operation name="combineStructure">
+      <wsdl:input message="tns:combineStructure" name="combineStructure">
+    </wsdl:input>
+      <wsdl:output message="tns:combineStructureResponse" name="combineStructureResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DatasetSoapBinding" type="tns:Dataset">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="combineStructure">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="combineStructure">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="combineStructureResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Dataset">
+    <wsdl:port binding="tns:DatasetSoapBinding" name="ALLinOneImplPort">
+      <soap:address location="http://localhost:8080/soap/DataBatch"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
