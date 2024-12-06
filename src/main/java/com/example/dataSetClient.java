@@ -1,9 +1,8 @@
 package com.example;
 
 import io.quarkiverse.cxf.annotation.CXFClient;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 import org.acme.soap_service.allinone.Dataset;
 import org.acme.soap_service.allinone.Wrapper;
 import org.acme.soap_service.allinone.Objd;
@@ -23,27 +22,29 @@ public class dataSetClient {
 
     @GET
     @Path("/insert")
+    @Produces(MediaType.APPLICATION_XML)
+    @Consumes(MediaType.APPLICATION_XML)
     public Wrapper combineStructure() throws Exception {
 
-        String arg0 = "SampleName";
+        String type = "SampleName";
 
         GregorianCalendar calendar = new GregorianCalendar(2024, 11, 4);
-        XMLGregorianCalendar arg1 = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
+        XMLGregorianCalendar date = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
 
-        List<String> arg2 = new ArrayList<>();
-        arg2.add("Signature1");
-        arg2.add("Signature2");
+        List<String> sign  = new ArrayList<>();
+        sign.add("Signature1");
+        sign.add("Signature2");
 
-        Objd arg3 = new Objd();
-        arg3.setDistrict("District");
-        arg3.setCity("City");
-        arg3.setPostal(1111);
+        Objd objd = new Objd();
+        objd.setDistrict("District");
+        objd.setCity("City");
+        objd.setPostal(1111);
 
-        ObjCollection arg4 = new ObjCollection();
-        arg4.getUserDetails().add(arg3);
-        arg4.getContractDetails().add(arg3);
+        ObjCollection collection = new ObjCollection();
+        collection.getUserDetails().add(objd);
+        collection.getContractDetails().add(objd);
 
-        Wrapper res = dataset.combineStructure(arg0, arg1, arg2, arg3, arg4);
+        Wrapper res = dataset.combineStructure(type, date, sign, objd, collection);
 
         return res;
     }
